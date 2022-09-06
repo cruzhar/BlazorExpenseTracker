@@ -1,4 +1,5 @@
 using BlazorExpenseTracker.Data;
+using BlazorExpenseTracker.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace BlazorExpenseTracker.API2
 {
@@ -26,9 +28,11 @@ namespace BlazorExpenseTracker.API2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IcategoryRepository, CategoryRepository>();
             services.AddControllers();
             var SqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("SqlConnection"));
             services.AddSingleton(SqlConnectionConfiguration);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
